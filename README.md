@@ -19,3 +19,7 @@ Criar um CRUD de usuários com as seguintes funcionalidades:
 
 ## Prazo
 * 28/07/2025
+
+## Modelagem relacional
+
+![modelo relacional do banco de dados](imgs/modelagem_db.png)
