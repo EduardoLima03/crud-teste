@@ -25,6 +25,15 @@ public class UserController {
         return ResponseEntity.ok().body(users);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findId(@PathVariable Integer id) {
+        try {
+            return ResponseEntity.ok(userService.findUser(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody @Valid CreateUserDto userDto){
         try {
@@ -38,5 +47,15 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<UserModel> update(@PathVariable Integer id, @RequestBody UpdateUserDto dto) {
         return ResponseEntity.ok(userService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Integer id){
+        try {
+
+            return ResponseEntity.ok().body(userService.delete(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body("Não foi possivel deleta, usuario não encontrado");
+        }
     }
 }

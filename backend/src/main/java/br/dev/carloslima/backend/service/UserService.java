@@ -4,12 +4,14 @@ import br.dev.carloslima.backend.model.UserModel;
 import br.dev.carloslima.backend.model.dto.CreateUserDto;
 import br.dev.carloslima.backend.model.dto.UpdateUserDto;
 import br.dev.carloslima.backend.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -35,6 +37,10 @@ public class UserService {
      */
     public List<UserModel> listAllActive(){
         return userRepository.findByActive((short) 1);
+    }
+
+    public UserModel findUser(Integer id){
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
     /***
@@ -76,6 +82,19 @@ public class UserService {
         return userRepository.save(user);
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public String delete(Integer id){
+        try {
+            UserModel user = userRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+            userRepository.delete(user);
+            return "Usuário deletado com sucesso!";
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao deletar usuário: " + e.getMessage());
         }
     }
 }
