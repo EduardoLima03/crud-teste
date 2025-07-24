@@ -7,16 +7,16 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_permissions")
-public class Permission implements Serializable {
+public class PermissionModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPermissions;
     private String permission;
 
-    public Permission() {
+    public PermissionModel() {
     }
 
-    public Permission(Integer idPermissions, String permission) {
+    public PermissionModel(Integer idPermissions, String permission) {
         this.idPermissions = idPermissions;
         this.permission = permission;
     }
@@ -40,12 +40,11 @@ public class Permission implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Permission that = (Permission) o;
+        PermissionModel that = (PermissionModel) o;
         return Objects.equals(permission, that.permission);
     }
 
     @Override
     public int hashCode() {
         return Objects.hashCode(permission);
-    }
-}
+    }}
