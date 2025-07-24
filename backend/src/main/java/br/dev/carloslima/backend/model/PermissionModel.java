@@ -16,8 +16,7 @@ public class PermissionModel implements Serializable {
     public PermissionModel() {
     }
 
-    public PermissionModel(Integer idPermissions, String permission) {
-        this.idPermissions = idPermissions;
+    public PermissionModel(String permission) {
         this.permission = permission;
     }
 

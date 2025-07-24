@@ -19,4 +19,13 @@ public class PermissionService {
     public List<PermissionModel> findAll(){
         return repository.findAll();
     }
+
+    public int createdPermission(PermissionModel permissionModel){
+       try{
+           repository.save(permissionModel);
+       } catch (RuntimeException e) {
+           return 0;
+       }
+       return 1;
+    }
 }
