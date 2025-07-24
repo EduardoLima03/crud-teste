@@ -1,21 +1,34 @@
 package br.dev.carloslima.backend.controller;
 
-import br.dev.carloslima.backend.model.User;
+import br.dev.carloslima.backend.model.UserModel;
+import br.dev.carloslima.backend.model.dto.CreateUserDto;
+import br.dev.carloslima.backend.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
-    public ResponseEntity<User> findAll(){
-        User u = new User(1, "Carlos", "lima", "87ds5a64d54ew6r54f5sd", (short) 1,
-                LocalDateTime.now(), LocalDateTime.now());
-        return ResponseEntity.ok().body(u);
+    public ResponseEntity<List<UserModel>> findAll(){
+        List<UserModel> users = userService.listAllActive();
+        return ResponseEntity.ok().body(users);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createUser(@RequestBody CreateUserDto userDto){
+        try {
+            return ResponseEntity.ok().body("Registrado com sucesso");
+        }catch (Exception e){
+            return  ResponseEntity.internalServerError().body("Não foi possivel salvar");
+        }
     }
 }
