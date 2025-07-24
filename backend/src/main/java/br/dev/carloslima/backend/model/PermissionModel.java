@@ -1,23 +1,29 @@
 package br.dev.carloslima.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_permissions")
-public class Permission implements Serializable {
+public class PermissionModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPermissions;
     private String permission;
 
-    public Permission() {
+    @ManyToMany(mappedBy = "permissions")
+    @JsonIgnore
+    private Set<UserModel> users = new HashSet<>();
+
+    public PermissionModel() {
     }
 
-    public Permission(Integer idPermissions, String permission) {
-        this.idPermissions = idPermissions;
+    public PermissionModel(String permission) {
         this.permission = permission;
     }
 
@@ -37,15 +43,22 @@ public class Permission implements Serializable {
         this.permission = permission;
     }
 
+    public Set<UserModel> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<UserModel> users) {
+        this.users = users;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Permission that = (Permission) o;
+        PermissionModel that = (PermissionModel) o;
         return Objects.equals(permission, that.permission);
     }
 
     @Override
     public int hashCode() {
         return Objects.hashCode(permission);
-    }
-}
+    }}

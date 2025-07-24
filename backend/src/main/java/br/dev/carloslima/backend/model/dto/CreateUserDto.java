@@ -3,6 +3,8 @@ package br.dev.carloslima.backend.model.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Email;
 
+import java.util.Set;
+
 public class CreateUserDto {
 
     @NotNull
@@ -14,6 +16,16 @@ public class CreateUserDto {
     private String email;
     @NotNull
     private String password;
+
+    Set<Integer> permissionIds;
+
+    public Set<Integer> getPermissionIds() {
+        return permissionIds;
+    }
+
+    public void setPermissionIds(Set<Integer> permissionIds) {
+        this.permissionIds = permissionIds;
+    }
 
     public CreateUserDto(String name, String surname, String email, String password) {
         this.name = name;
