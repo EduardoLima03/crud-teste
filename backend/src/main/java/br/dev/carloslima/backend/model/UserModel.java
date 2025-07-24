@@ -43,6 +43,7 @@ public class UserModel implements Serializable {
         this.surname = surname;
         this.email = email;
         this.password = password;
+        this.creationData = LocalDateTime.now();
     }
 
     public String getEmail() {

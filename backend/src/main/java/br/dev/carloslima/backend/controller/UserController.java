@@ -26,6 +26,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody CreateUserDto userDto){
         try {
+            userService.created(userDto);
             return ResponseEntity.ok().body("Registrado com sucesso");
         }catch (Exception e){
             return  ResponseEntity.internalServerError().body("Não foi possivel salvar");

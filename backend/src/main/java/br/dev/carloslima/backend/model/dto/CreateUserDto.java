@@ -1,10 +1,18 @@
 package br.dev.carloslima.backend.model.dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
+
 public class CreateUserDto {
 
+    @NotNull
     private String name;
+    @NotNull
     private String surname;
+    @NotNull
+    @Email
     private String email;
+    @NotNull
     private String password;
 
     public CreateUserDto(String name, String surname, String email, String password) {
