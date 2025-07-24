@@ -1,27 +1,33 @@
 package br.dev.carloslima.backend.service;
 
+import br.dev.carloslima.backend.model.PermissionModel;
 import br.dev.carloslima.backend.model.UserModel;
 import br.dev.carloslima.backend.model.dto.CreateUserDto;
 import br.dev.carloslima.backend.model.dto.UpdateUserDto;
+import br.dev.carloslima.backend.repository.PermissionRepository;
 import br.dev.carloslima.backend.repository.UserRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
     private final BCryptPasswordEncoder encoder;
 
+    private PermissionRepository permissionRepository;
+
     @Autowired
-    public UserService(BCryptPasswordEncoder encoder) {
+    public UserService(BCryptPasswordEncoder encoder, PermissionRepository permissionRepository) {
         this.encoder = encoder;
+        this.permissionRepository = permissionRepository;
     }
     /***
      * Lista todos os usuarios
@@ -53,6 +59,10 @@ public class UserService {
         try {
             UserModel userEtity = new UserModel(dto.getName(), dto.getSurname(), dto.getEmail(),
                     encoder.encode(dto.getPassword()));
+            Set<PermissionModel> permissions = dto.getPermissionIds().stream().map(
+                    id -> permissionRepository.findById(id).orElseThrow(()-> new RuntimeException("Permissão não encontrada: " + id))
+            ).collect(Collectors.toSet());
+            userEtity.setPermissions(permissions);
             return userRepository.save(userEtity);
         } catch (RuntimeException e) {
             throw new RuntimeException(e);

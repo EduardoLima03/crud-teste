@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_users")
@@ -22,6 +24,11 @@ public class UserModel implements Serializable {
     private LocalDateTime creationData;
     @Column(name = "updateDate")
     private LocalDateTime updateDate;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_permissions", joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    private Set<PermissionModel> permissions = new HashSet<>();
 
     public UserModel() {
     }
@@ -108,6 +115,14 @@ public class UserModel implements Serializable {
 
     public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Set<PermissionModel> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<PermissionModel> permissions) {
+        this.permissions = permissions;
     }
 
     @Override

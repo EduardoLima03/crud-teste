@@ -1,9 +1,12 @@
 package br.dev.carloslima.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_permissions")
@@ -12,6 +15,10 @@ public class PermissionModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPermissions;
     private String permission;
+
+    @ManyToMany(mappedBy = "permissions")
+    @JsonIgnore
+    private Set<UserModel> users = new HashSet<>();
 
     public PermissionModel() {
     }
@@ -34,6 +41,14 @@ public class PermissionModel implements Serializable {
 
     public void setPermission(String permission) {
         this.permission = permission;
+    }
+
+    public Set<UserModel> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<UserModel> users) {
+        this.users = users;
     }
 
     @Override
