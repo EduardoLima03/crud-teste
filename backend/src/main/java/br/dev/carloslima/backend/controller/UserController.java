@@ -2,7 +2,9 @@ package br.dev.carloslima.backend.controller;
 
 import br.dev.carloslima.backend.model.UserModel;
 import br.dev.carloslima.backend.model.dto.CreateUserDto;
+import br.dev.carloslima.backend.model.dto.UpdateUserDto;
 import br.dev.carloslima.backend.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +26,17 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody CreateUserDto userDto){
+    public ResponseEntity<String> createUser(@RequestBody @Valid CreateUserDto userDto){
         try {
             userService.created(userDto);
             return ResponseEntity.ok().body("Registrado com sucesso");
         }catch (Exception e){
             return  ResponseEntity.internalServerError().body("Não foi possivel salvar");
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserModel> update(@PathVariable Integer id, @RequestBody UpdateUserDto dto) {
+        return ResponseEntity.ok(userService.update(id, dto));
     }
 }
