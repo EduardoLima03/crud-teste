@@ -5,8 +5,6 @@ import { RouterOutlet } from '@angular/router';
 import { Header } from './components/templates/header/header';
 import { Footer } from './components/templates/footer/footer';
 import { MatCardModule } from '@angular/material/card';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
