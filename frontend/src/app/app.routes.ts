@@ -4,11 +4,10 @@ import { User } from './views/user/user';
 export const routes: Routes = [
     {
         path:'',
-        loadComponent: () => import('./app').then(m => m.App)
+        loadComponent: () => import('./views/home/home').then(m => m.Home)
     },
     {
         path: 'users',
-        //loadComponent: () => import('./views/user/user').then(m => m.User)
-        component: User
+        loadComponent: () => import('./views/user/user').then(m => m.User)
     }
 ];
