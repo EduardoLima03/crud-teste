@@ -32,7 +32,6 @@ export class User {
     this.httpService.get<any[]>('/users').subscribe(data => {
       this.users = data;
       this.cdr.detectChanges();
-      console.log(this.users);
     }, error => {
       console.error('Error fetching user data', error);
     });
@@ -43,7 +42,6 @@ export class User {
 
   onRowClick(user: any) {
     this.selectedUserId = user.idUsers;
-    console.log('Selecionado ID:', this.selectedUserId);
 
   }
 
@@ -64,7 +62,6 @@ export class User {
   editUser() {
     const user = this.users.find(u => u.idUsers === this.selectedUserId);
     if (user) {
-      console.log('Editando usuário:', user);
       this.router.navigate(['/users/form'], { state: { user } });
     }
   }

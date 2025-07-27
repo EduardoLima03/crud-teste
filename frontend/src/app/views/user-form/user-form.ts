@@ -55,7 +55,6 @@ export class UserForm implements OnInit {
         permissiionIds: this.user.permissions?.map((p: any) => p.id) || []
       }
       this.form.patchValue(patchedUser);
-      console.log('Editando Rebido:', this.user);
     }
 
 
@@ -74,7 +73,6 @@ export class UserForm implements OnInit {
         error: err => console.error('Erro ao atualizar:', err)
       });
     } else {
-      console.log('Cadastrando usuário:', userData);
       this.httpService.post('/users', userData).subscribe({
         next: () => {
           alert('Usuário cadastrado com sucesso!');
