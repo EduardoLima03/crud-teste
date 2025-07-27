@@ -19,3 +19,6 @@
 .profiles{
   margin: 3px;
 }
+.selected-row {
+  background-color: #cce5ff !important;
+}
