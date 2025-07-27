@@ -44,7 +44,7 @@ export class User {
   onRowClick(user: any) {
     this.selectedUserId = user.idUsers;
     console.log('Selecionado ID:', this.selectedUserId);
-    
+
   }
 
   // Método para adicionar deletar usuário
@@ -64,6 +64,7 @@ export class User {
   editUser() {
     const user = this.users.find(u => u.idUsers === this.selectedUserId);
     if (user) {
+      console.log('Editando usuário:', user);
       this.router.navigate(['/users/form'], { state: { user } });
     }
   }

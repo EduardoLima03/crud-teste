@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
   styleUrl: './user-form.css'
 })
 export class UserForm implements OnInit {
-  @Input() user: any = null;
+  user: any = null;
   isEditMode: boolean = false;
   form!: FormGroup;
 
@@ -36,6 +36,8 @@ export class UserForm implements OnInit {
   constructor(private fb: FormBuilder, private router: Router) { }
 
   ngOnInit() {
+    this.user = history.state.user;
+
     this.form = this.fb.group({
       idUsers: [null],
       name: ['', Validators.required],
@@ -48,8 +50,12 @@ export class UserForm implements OnInit {
 
     if (this.user) {
       this.isEditMode = true;
-      this.form.patchValue(this.user);
-      this.form.get('password')?.clearValidators();
+      const patchedUser = {
+        ...this.user,
+        permissiionIds: this.user.permissions?.map((p: any) => p.id) || []
+      }
+      this.form.patchValue(patchedUser);
+      console.log('Editando Rebido:', this.user);
     }
 
 
