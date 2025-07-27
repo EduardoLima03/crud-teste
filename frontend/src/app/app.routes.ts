@@ -9,5 +9,9 @@ export const routes: Routes = [
     {
         path: 'users',
         loadComponent: () => import('./views/user/user').then(m => m.User)
+    },
+    {
+        path: 'users/form',
+        loadComponent: () => import('./views/user-form/user-form').then(m => m.UserForm)
     }
 ];

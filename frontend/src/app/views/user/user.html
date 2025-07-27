@@ -2,8 +2,8 @@
     <div class="user-profile">
         <h1>Usuarios</h1>
         <section class="user-actions">
-            <button class="btn btn-primary" ng-click="addUser()">Novo Usuario</button>
-            <button class="btn btn-secondary" ng-click="editUser()">Editar Usuario</button>
+            <button class="btn btn-primary" (click)="createdUser()">Novo Usuario</button>
+            <button class="btn btn-secondary" [disabled]="!selectedUserId" (click)="editUser()">Editar Usuario</button>
             <button class="btn btn-danger" [disabled]="!selectedUserId" 
             (click)="deleteUser(selectedUserId!)">Excluir Usuario</button>
         </section>
@@ -63,7 +63,7 @@
   <!-- Cabeçalhos e linhas -->
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;" 
-  (click)="onRowClick(row)" [class.selected-row]="row.idUser === selectedUserId"></mat-row>
+  (click)="onRowClick(row)" [class.selected-row]="row.idUsers === selectedUserId"></mat-row>
 
 </mat-table>
 

@@ -1,0 +1,45 @@
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Sobrenome</mat-label>
+      <input matInput formControlName="surname" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width" *ngIf="!isEditMode">
+      <mat-label>Senha</mat-label>
+      <input matInput formControlName="password" type="password" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="active">
+        <mat-option [value]="1">Ativo</mat-option>
+        <mat-option [value]="0">Inativo</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Permissões</mat-label>
+      <mat-select formControlName="permissionIds" multiple>
+        <mat-option [value]="1">ADMIN</mat-option>
+        <mat-option [value]="2">USER</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">
+      {{ isEditMode ? 'Atualizar' : 'Cadastrar' }}
+    </button>
+
+  </form>
+</mat-card>
