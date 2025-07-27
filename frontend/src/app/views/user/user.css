@@ -1,4 +1,21 @@
 .user-view {
-  display: flex;
+  
   padding: 20px;
+}
+.badge-success {
+  color: white;
+  background-color: green;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.badge-danger {
+  color: white;
+  background-color: red;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.profiles{
+  margin: 3px;
 }

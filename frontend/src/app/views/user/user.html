@@ -8,22 +8,61 @@
         </section>
     </div>
 
-    <section>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Permissão</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (profile of profiles; track $index) {
-        <tr>
-          <td>{{ $index + 1 }}</td>
-          <td>{{ profile.permission }}</td>
-        </tr>
-      }
-    </tbody>
-  </table>
-</section>
+  
+  
+
+<mat-table [dataSource]="users" class="mat-elevation-z8">
+
+  <!-- Nome -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+    <mat-cell *matCellDef="let user"> {{ user.name }} </mat-cell>
+  </ng-container>
+
+  <!-- Sobrenome -->
+  <ng-container matColumnDef="surname">
+    <mat-header-cell *matHeaderCellDef> Sobrenome </mat-header-cell>
+    <mat-cell *matCellDef="let user"> {{ user.surname }} </mat-cell>
+  </ng-container>
+
+  <!-- Email -->
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef> E-mail </mat-header-cell>
+    <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
+  </ng-container>
+
+  <!-- Ativo -->
+  <ng-container matColumnDef="active">
+    <mat-header-cell *matHeaderCellDef> Ativo </mat-header-cell>
+    <mat-cell *matCellDef="let user">
+      <span [ngClass]="user.active === 1 ? 'badge-success' : 'badge-danger'">
+        {{ user.active === 1 ? 'Ativo' : 'Inativo' }}
+      </span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Perfis -->
+  <ng-container matColumnDef="permissions">
+    <mat-header-cell *matHeaderCellDef> Perfis </mat-header-cell>
+    <mat-cell *matCellDef="let user">
+      <mat-chip-listbox>
+        <mat-chip class="profiles" *ngFor="let profile of user.permissions">{{ profile.permission }}</mat-chip>
+      </mat-chip-listbox>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Data de Criação -->
+  <ng-container matColumnDef="creationData">
+    <mat-header-cell *matHeaderCellDef> Data de Criação </mat-header-cell>
+    <mat-cell *matCellDef="let user">
+      {{ user.creationData | date: 'dd/MM/yyyy' }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Cabeçalhos e linhas -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</mat-table>
+
 </main>
